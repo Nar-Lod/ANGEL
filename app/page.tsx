@@ -20,7 +20,10 @@ const period=(t:string)=>{const n=mins(t);return n<420?"Early morning":n<660?"Mo
 const pctColor=(p:number)=>p===0?"#e34e4e":p===10?"#a5a9b0":`hsl(${Math.round(120*(p/100))} 58% 42%)`;
 export default function Home(){
  const [tasks,setTasks]=useState<Task[]>(initial),[view,setView]=useState<"day"|"week"|"month">("day"),[selected,setSelected]=useState(iso(today)),[active,setActive]=useState<Task|null>(null),[query,setQuery]=useState(""),[showAdd,setShowAdd]=useState(false),[showImport,setShowImport]=useState(false),[newTitle,setNewTitle]=useState(""),[newStart,setNewStart]=useState("08:00"),[newEnd,setNewEnd]=useState("09:00"),[newProject,setNewProject]=useState("Personal"),[notice,setNotice]=useState(""),[aiPrompt,setAiPrompt]=useState("");
- const fileRef=useRef<HTMLInputElement>(null);\n const [importing,setImporting]=useState(false);\n useEffect(()=>{try{const saved=localStorage.getItem("angel.tasks.v1");if(saved)setTasks(JSON.parse(saved));}catch{}},[]);\n useEffect(()=>{try{localStorage.setItem("angel.tasks.v1",JSON.stringify(tasks));}catch{}},[tasks]);
+ const fileRef=useRef<HTMLInputElement>(null);
+ const [importing,setImporting]=useState(false);
+ useEffect(()=>{try{const saved=localStorage.getItem("angel.tasks.v1");if(saved)setTasks(JSON.parse(saved));}catch{}},[]);
+ useEffect(()=>{try{localStorage.setItem("angel.tasks.v1",JSON.stringify(tasks));}catch{}},[tasks]);
  const date=new Date(selected+"T12:00:00");
  const filtered=useMemo(()=>tasks.filter(t=>t.date===selected&&t.title.toLowerCase().includes(query.toLowerCase())),[tasks,selected,query]);
  const grouped=["Early morning","Morning","Mid-day","Evening"];
